@@ -27,7 +27,7 @@ class Category extends Model
             ->saveSlugsTo('slug');
     }
 
-    public function child(): HasMany
+    public function childs(): HasMany
     {
         return $this->hasMany(Category::class, 'id', 'child_id');
     }
