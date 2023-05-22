@@ -28,11 +28,6 @@ class Category extends Model
 
     public function child(): HasOne
     {
-        return $this->hasOne(Category::class);
-    }
-
-    public function parent(): BelongsTo
-    {
-        return $this->belongsTo(Category::class);
+        return $this->hasOne(Category::class, 'id', 'child_id');
     }
 }
