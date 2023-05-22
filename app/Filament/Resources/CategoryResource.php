@@ -53,9 +53,11 @@ class CategoryResource extends Resource
                     ->label('ID'),
                 Tables\Columns\TextColumn::make('name')
                     ->label('Name')
-                    ->description('slug here'),
-                Tables\Columns\TextColumn::make('child.name')
-                    ->color('secondary')
+                    ->description(fn (Category $record): string => $record->slug),
+                Tables\Columns\TagsColumn::make('parents.name')
+                    ->label('Parents'),
+                Tables\Columns\TagsColumn::make('childs.name')
+                    ->label('Childs'),
             ])
             ->filters([
                 //
