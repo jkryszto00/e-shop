@@ -27,11 +27,11 @@ class Category extends Model
 
     public function parents(): BelongsToMany
     {
-        return $this->belongsToMany(Category::class, 'category_child', 'child_id', 'parent_id');
+        return $this->belongsToMany(Category::class, 'category_child', 'child_id', 'parent_id')->withTimestamps();
     }
 
     public function childs(): BelongsToMany
     {
-        return $this->belongsToMany(Category::class, 'category_child', 'parent_id', 'child_id');
+        return $this->belongsToMany(Category::class, 'category_child', 'parent_id', 'child_id')->withTimestamps();
     }
 }

@@ -37,11 +37,18 @@ class CategoryResource extends Resource
                     ->label('Slug')
                     ->disabled()
                     ->required(),
-                Forms\Components\Select::make('child_id')
-                    ->label('Have child')
+                Forms\Components\Select::make('parents')
+                    ->label('Parents')
+                    ->relationship('parents', 'name')
+                    ->options(Category::all()->pluck('name', 'id'))
+                    ->searchable()
+                    ->multiple(),
+                Forms\Components\Select::make('childs')
+                    ->label('Childs')
+                    ->relationship('childs', 'name')
+                    ->options(Category::all()->pluck('name', 'id'))
                     ->searchable()
                     ->multiple()
-                    ->options(Category::all()->pluck('name', 'id'))
             ]);
     }
 
