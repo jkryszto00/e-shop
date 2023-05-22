@@ -4,9 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
@@ -27,8 +25,13 @@ class Category extends Model
             ->saveSlugsTo('slug');
     }
 
-    public function childs(): HasMany
+    public function parents(): BelongsToMany
     {
-        return $this->hasMany(Category::class, 'id', 'child_id');
+        return $this->belongsToMany(Category::class, 'category_child', 'child_id', 'parent_id');
+    }
+
+    public function childs(): BelongsToMany
+    {
+        return $this->belongsToMany(Category::class, 'category_child', 'parent_id', 'child_id');
     }
 }

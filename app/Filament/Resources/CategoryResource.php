@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\CategoryResource\Pages;
 use App\Filament\Resources\CategoryResource\RelationManagers;
 use App\Models\Category;
+use Closure;
 use Faker\Provider\Text;
 use Filament\Forms;
 use Filament\Resources\Form;
@@ -13,6 +14,7 @@ use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Str;
 
 class CategoryResource extends Resource
 {
@@ -24,7 +26,22 @@ class CategoryResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('name')
+                    ->label('Name')
+                    ->reactive()
+                    ->afterStateUpdated(function (Closure $set, $state) {
+                        $set('slug', Str::slug($state));
+                    })
+                    ->required(),
+                Forms\Components\TextInput::make('slug')
+                    ->label('Slug')
+                    ->disabled()
+                    ->required(),
+                Forms\Components\Select::make('child_id')
+                    ->label('Have child')
+                    ->searchable()
+                    ->multiple()
+                    ->options(Category::all()->pluck('name', 'id'))
             ]);
     }
 
