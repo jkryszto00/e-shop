@@ -22,11 +22,4 @@ class CategoryFactory extends Factory
             'name' => fake()->word(),
         ];
     }
-
-    public function withChild(): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'child_id' => Category::factory()
-        ]);
-    }
 }
