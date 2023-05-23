@@ -49,6 +49,7 @@ class CategoryResource extends Resource
                     ->options(Category::all()->pluck('name', 'id'))
                     ->searchable()
                     ->multiple()
+                    ->preload()
             ]);
     }
 
