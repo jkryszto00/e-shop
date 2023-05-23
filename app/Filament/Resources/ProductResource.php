@@ -29,6 +29,11 @@ class ProductResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Card::make([
+                    Forms\Components\FileUpload::make('main_image')
+                        ->image()
+                        ->directory('mimg')
+                ]),
+                Forms\Components\Card::make([
                     Forms\Components\TextInput::make('name')
                         ->label('Name')
                         ->reactive()
@@ -90,6 +95,8 @@ class ProductResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('id')
                     ->label('ID'),
+                Tables\Columns\ImageColumn::make('main_image')
+                    ->label('Main image'),
                 Tables\Columns\TagsColumn::make('brands.name')
                     ->label('Brands'),
                 Tables\Columns\TextColumn::make('name')
